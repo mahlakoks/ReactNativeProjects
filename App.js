@@ -89,7 +89,7 @@ export default function App() {
       <View>
         <Header />
         <AddToDo submitHandler={submitHandler} sortHandler={sortHandler} />
-        <View style={styles.listContainer}>
+        <View>
           <Text style={styles.container}>
             Total todos:= {countTodo} Completed=: {countDone}
           </Text>
@@ -113,5 +113,5 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-  }
+  },
 });
