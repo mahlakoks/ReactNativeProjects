@@ -8,12 +8,14 @@ import {
   View,
 } from "react-native";
 import { RadioButton } from "react-native-paper";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function ToDoIteam({ item, pressHandler }) {
   return (
     <TouchableOpacity onPress={() => pressHandler(item.key)}>
       <View style={styles.textItem}>
-        <Text>{item.text}</Text>
+      <MaterialIcons name="delete" size={20} color="lightgray" />
+      <Text>{item.text}</Text>
       </View>
     </TouchableOpacity>
   );
