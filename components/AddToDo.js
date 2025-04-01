@@ -1,11 +1,20 @@
 import React, { useState } from "react";
-import { Text, View, TextInput, StyleSheet, Button } from "react-native";
+import { Text, View, TextInput, StyleSheet, Modal, Button } from "react-native";
 
-export default function AddToDo({ submitHandler, sortHandler }) {
+export default function AddToDo({ submitHandler, sortHandler, navigation,handleDoneItems }) {
   const [text, setText] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   const changeHandler = (val) => {
     setText(val);
+  };
+
+  const onClickHanler = () => {
+   // navigation.navigate("DoneItems");
+    const doneItemsData = handleDoneItems();
+    
+    // Navigate to DoneItems screen with the data
+    navigation.navigate("DoneItems", { data: doneItemsData });
   };
 
   return (
@@ -28,12 +37,13 @@ export default function AddToDo({ submitHandler, sortHandler }) {
         <Button
           title="Completed"
           color={"lightgreen"}
-          onPress={() => console.log("complete")}
+          onPress={onClickHanler}
         />
       </View>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   addToDo: {
     margin: 10,
