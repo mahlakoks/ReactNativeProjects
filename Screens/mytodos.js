@@ -11,9 +11,9 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import AddToDo from "../components/AddToDo";
-import Header from "../components/header";
+//import Header from "../components/header";
 import ToDoIteam from "../components/todoIteam";
-
+import globalStyles from "../shared/globalstyles";
 // You can import supported modules from npm
 import { Card } from "react-native-paper";
 
@@ -29,31 +29,54 @@ export default function MyToDos({ navigation }) {
   ];
 
   const [myTodo, setTodos] = useState(mydotoList);
-  // const [countTodo, setCountTodo] = useState(mydotoList.length);
-
   const [countDone, setCountDone] = useState(0);
-  const [doneIteams, setdoneIteams] = useState([]);
-
-  const [sortOrder, setsortOrder] = useState("desc");
+ // const [doneItems, setDoneItems] = useState([{ text: "Play soccer", key: "44" }]);
+  const [doneItems, setDoneItems] = useState([]);
+  const [sortOrder, setSortOrder] = useState("desc");
 
   const handleDoneItems = () => {
-    return doneIteams;
+    return doneItems;
   };
 
   const pressHandler = (key) => {
-    // setdoneIteams((currDone) => {
+    // setTodos((prevTodos) => {
+    //   console.log("Attempt Upate done items key "+prevTodos);
 
-    // })
-    setTodos((prevTodos) => {
-      console.log(prevTodos);
-      doneIteams.push(prevTodos); //avoid direct manupulation
-      return prevTodos.filter((todo) => todo.key != key);
+    //  // const updatedTodos = prevTodos.filter((todo) => todo.key !== key);
+    //   const completedTodo = prevTodos.find((todo) => todo.key === key);
+
+    //   if (completedTodo) {
+    //     setDoneItems((prevDoneItems) => [...prevDoneItems, completedTodo]);
+    //   }
+
+    //   return updatedTodos;
+    // });
+
+    setDoneItems((prevDoneItems) => {
+      // const updatedTodos = prevTodos.filter((todo) => todo.key !== key);
+      console.log("Attempt Upate done items key ",prevDoneItems);
+
+      const completedTodo = myTodo?.find((todo) => todo.key === key);
+      console.log("Attempt Upate done items key " + key);
+
+      if (completedTodo) {
+        console.log("Upate done items");
+        //setDoneItems((prevDoneItems) => [...prevDoneItems, completedTodo]);
+        return [...prevDoneItems, completedTodo]; //completedTodo;
+      }
+
+      return prevDoneItems;
     });
 
     setCountDone(() => {
-      return doneIteams.length;
+      return doneItems.length + 1;
     });
-    console.log("countDone   " + countDone);
+  };
+
+  const handleDelete = (key) => {
+    setTodos((prevTodos) => {
+      return prevTodos.filter((item) => item.key !== key);
+    });
   };
 
   const submitHandler = (text) => {
@@ -71,8 +94,6 @@ export default function MyToDos({ navigation }) {
     });
   };
 
-  const completeHandler = () => {};
-
   const changeHandler = (item) => {
     if (item.id !== id) {
       setMyTodo();
@@ -81,14 +102,12 @@ export default function MyToDos({ navigation }) {
   const sortHandler = () => {
     if (myTodo.length > 0) {
       setTodos((prevTodos) => {
-        console.log("  sortOrder" + sortOrder);
-
         if (sortOrder !== "desc") {
-          setsortOrder("desc");
+          setSortOrder("desc");
           return [...prevTodos].sort((a, b) => b.text.localeCompare(a.text));
         }
 
-        setsortOrder("asc");
+        setSortOrder("asc");
         return [...prevTodos].sort((a, b) => a.text.localeCompare(b.text));
       });
     }
@@ -100,15 +119,14 @@ export default function MyToDos({ navigation }) {
       onPress={() => Keyboard.dismiss}
     >
       <View style={{ flex: 1 }}>
-        <Header />
         <AddToDo
           submitHandler={submitHandler}
           sortHandler={sortHandler}
           navigation={navigation}
-          handleDoneItems={handleDoneItems}
+          doneItems={doneItems}
         />
         <View style={{ flex: 1 }}>
-          <Text style={styles.container}>
+          <Text style={globalStyles.container}>
             Total todos:= {myTodo.length} Completed=: {countDone}
           </Text>
           <FlatList
@@ -116,6 +134,7 @@ export default function MyToDos({ navigation }) {
             renderItem={({ item }) => (
               <ToDoIteam
                 item={item}
+                handleDelete={handleDelete}
                 pressHandler={pressHandler}
                 navigation={navigation}
                 handleDoneItems={handleDoneItems}
@@ -127,14 +146,3 @@ export default function MyToDos({ navigation }) {
     </TouchableWithoutFeedback>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-    padding: 10,
-    backgroundColor: "lightgrey",
-  },
-  listContainer: {
-    flex: 1,
-  },
-});

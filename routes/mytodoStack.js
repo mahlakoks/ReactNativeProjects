@@ -1,10 +1,5 @@
-//import { createStackNavigator } from "@react-navigation/stack";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
-
-//import Home from "../screens/Home";
-//import ReviewDetails from "../screens/reviewDetails";
-//mport Header from "../styles/header";
 import React from "react";
 
 import MyToDos from "../Screens/mytodos";
@@ -28,7 +23,7 @@ export default function Navigator() {
           name="MyTodos"
           component={MyToDos}
           options={{
-           headerTitle: "Stack Navigator in play", 
+           headerTitle: "My Todo App", 
            // headerTitle: ()=><Header />, //
           }}
         />
