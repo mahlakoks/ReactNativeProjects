@@ -7,6 +7,7 @@ import MyToDo from "./components/MyToDo/MyToDo";
 import ToDo from "./components/Todo/Todo";
 import uuid from "react-native-uuid";
 import { MaterialIcons } from "@expo/vector-icons";
+import backroundImage from "./assets/todo3.png";
 
 export default function App() {
   const mydotoList = [
@@ -131,6 +132,7 @@ export default function App() {
   return (
     //<Navigator />
 
+    <ImageBackground source={backroundImage} style={{ height:'100%' }}>
     <SafeAreaProvider>
       <SafeAreaView style={s.container}>
         <MyToDo
@@ -156,6 +158,7 @@ export default function App() {
           />
         </View>
       </SafeAreaView>
-    </SafeAreaProvider>
+      </SafeAreaProvider>
+      </ImageBackground>
   );
 }
