@@ -9,35 +9,21 @@ import {
 } from "react-native";
 import s from "./MyToDo.style";
 import ToDoButtons from "../ToDoButtons/ToDoButtons";
+import WithEnhancements from "../HOC/withEnhancements";
 
-export default function MyToDo({
-  todoStatus,
-  todoList,
-  handleToDo,
-  sortHandler,
-  setListToDisplay,
-  setScrollViewRef,
+// todoStatus,
+//   todoList,
+//   handleToDo,
+//   sortHandler,
+//   setListToDisplay,
+//   setScrollViewRef,
+
+function MyToDo({
+  onCompleteClick,
+  handleSubmit,
+  handleSetToDo,
+  ...props
 }) {
-  const [nextTodo, setNextTodo] = useState("");
-  const [sortOrder, setsortOrder] = useState("desc");
-  const [displayOption, setDisplayOption] = useState("Completed");
-
-  const handleSubmit = () => {
-    if (nextTodo.length <= 3) {
-      Alert.alert("OOPS", "Todo must be over 3 characters long", [
-        { text: "Understood", onPress: () => console.log("alert closed") },
-      ]);
-      return;
-    }
-    handleToDo(nextTodo);
-    setScrollViewRef.current.scrollToEnd();
-    setNextTodo("");
-  };
-
-  const onCompleteClick = () => {
-    setDisplayOption(displayOption === "Completed" ? "All" : "Completed");
-    setListToDisplay();
-  };
 
   return (
     <View style={s.mytodo}>
@@ -55,7 +41,7 @@ export default function MyToDo({
         <TextInput
           style={s.input}
           placeholder="Enter next todo"
-          onChangeText={setNextTodo}
+          onChangeText={handleSetToDo}
           value={nextTodo}
         />
         <View style={s.calltoaction}>
@@ -77,3 +63,5 @@ export default function MyToDo({
     </View>
   );
 }
+
+export default WithEnhancements(MyToDo);
