@@ -6,32 +6,21 @@ import s from "./ToDo.style";
 
 import AntDesign from "@expo/vector-icons/AntDesign";
 
+import useTodos from "../hooks/useToDos";
+
 export default function ToDo({
   item,
   onDelete,
   handleCheckBox,
   handleunCheckBox,
   doneItems,
+  setModalOpen,
 }) {
-  const [isChecked, setChecked] = useState(item.completed);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleDelete = () => {
-    onDelete(item.key);
-  };
-
-  const onCheckBoxClick = () => {
-    console.log(" Current check box status  was checked?? ", isChecked);
-
-    if (isChecked) {
-      console.log(" Check", isChecked);
-      handleunCheckBox(item.key);
-      setChecked(false);
-    }
-    console.log(item.key," unCheck", isChecked); //doneItems(item);
-    handleCheckBox(item.key);
-    setChecked(true);
-  };
+  const { isChecked, modalOpen, onCheckBoxClick, handleDelete } = useTodos(
+    item,
+    handleCheckBox,
+    setModalOpen
+  );
 
   const modaltest = () => {
     return (
