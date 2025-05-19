@@ -3,6 +3,10 @@ import { ImageBackground } from "react-native";
 import s from "./App.style";
 import backroundImage from "./assets/todo5.png";
 import MyTodo from "./components/apps/myTodoApp/MyTodo";
+import Users from "./components/Users/Users";
+import Card from "./components/Card/Card";
+import store from "./redux/store"
+import { Provider } from 'react-redux';
 
 export default function App() {
   return (
@@ -13,7 +17,11 @@ export default function App() {
     >
       <SafeAreaProvider>
         <SafeAreaView style={s.container}>
-          <MyTodo />
+        <Provider store={store}>
+            <MyTodo />
+            {/* <Users />
+            <Card /> */}
+        </Provider>   
         </SafeAreaView>
       </SafeAreaProvider>
     </ImageBackground>

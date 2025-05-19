@@ -21,14 +21,11 @@ export default function ToDo({
   };
 
   const onCheckBoxClick = () => {
-    console.log(" Current check box status  was checked?? ", isChecked);
-
     if (isChecked) {
-      console.log(" Check", isChecked);
       handleunCheckBox(item.key);
       setChecked(false);
+      return;
     }
-    console.log(item.key," unCheck", isChecked); //doneItems(item);
     handleCheckBox(item.key);
     setChecked(true);
   };

@@ -16,7 +16,10 @@ const s = StyleSheet.create({
     backgroundColor: "yellow",
     paddingTop: 50,
     alignItems: "center",
-    flexGrow: 1,
+   // flexGrow: 1,
+    borderRadius: 10,
+    borderWidth: 1,
+    padding: 10,
   },
   modalText: {
     flexDirection: "row",
